@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pepsi Schweiz — Наслаждайся вкусом без сахара</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FAF3E0;
+            --dark-main: #111111;
+            --pink-card: #FF5C97;
+            --neu-blue: #69F0FF;
+            --card-bg: #141414;
+            --text-muted: #888888;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth; /* Плавный скролл при клике на пункты меню */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--dark-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Шапка */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 32px;
+            background: rgba(250, 243, 224, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .lang-container {
+            position: relative;
+        }
+
+        .lang-switch {
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--dark-main);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            flex-direction: column;
+            padding: 8px 0;
+            min-width: 90px;
+            z-index: 1100;
+        }
+
+        .lang-dropdown.active {
+            display: flex;
+        }
+
+        .lang-dropdown button {
+            background: none;
+            border: none;
+            padding: 8px 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .lang-dropdown button:hover {
+            background: #f0f0f0;
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-weight: 900;
+        }
+
+        /* Полноэкранная шторка меню */
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #111111;
+            color: #fff;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .drawer.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .drawer-header img {
+            height: 28px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .drawer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: -30px;
+        }
+
+        .drawer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.2s;
+        }
+
+        .drawer-links a:hover {
+            color: var(--neu-blue);
+        }
+
+        .drawer-footer {
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* Hero секция */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 130px 20px 60px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .sparkle {
+            color: #FF2E7E;
+            font-size: 24px;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 7vw, 52px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.05;
+            letter-spacing: -0.5px;
+            color: var(--dark-main);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--dark-main);
+            margin: 15px 0 25px;
+        }
+
+        .mini-logo-img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            margin-bottom: 30px;
+        }
+
+        /* Промо-карточка */
+        .promo-card {
+            width: 100%;
+            background: var(--pink-card);
+            border-radius: 36px;
+            padding: 45px 20px 25px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(255, 92, 151, 0.35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .neu-badge {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            background: var(--neu-blue);
+            color: #000;
+            font-weight: 900;
+            font-size: 20px;
+            padding: 6px 20px;
+            border-radius: 50px;
+            transform: rotate(-8deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .hero-cans-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Секция продуктов */
+        .products-section {
+            background-color: #0c0c0c;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #181818;
+            border-radius: 24px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            height: 260px;
+            width: auto;
+            object-fit: contain;
+            margin-bottom: 25px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .product-btns {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: #004BFE;
+            border: 2px solid #004BFE;
+            color: #fff;
+        }
+
+        .btn:hover {
+            opacity: 0.85;
+        }
+
+        /* Секция Акции / О бренде */
+        .info-section {
+            background-color: #121212;
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .info-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-container h3 {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .info-container p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Футер */
+        footer {
+            background: #0c0c0c;
+            color: var(--text-muted);
+            padding: 60px 20px 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-logo {
+            height: 35px;
+            margin-bottom: 30px;
+            object-fit: contain;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--neu-blue);
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Pepsi Logo" class="logo-img" onclick="window.scrollTo(0,0)">
+        <div class="header-right">
+            <!-- Выбор языка -->
+            <div class="lang-container">
+                <button class="lang-switch" id="langBtn">RU ∨</button>
+                <div class="lang-dropdown" id="langDropdown">
+                    <button onclick="setLang('RU')">RU</button>
+                    <button onclick="setLang('DE')">DE</button>
+                    <button onclick="setLang('EN')">EN</button>
+                </div>
+            </div>
+            <!-- Бургер-меню -->
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </header>
+
+    <!-- Полноэкранная шторка меню -->
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <img src="logo.png" alt="Pepsi">
+            <button class="close-btn" id="closeBtn">&times;</button>
+        </div>
+        <div class="drawer-links">
+            <a href="#products" onclick="closeDrawer()">Продукты</a>
+            <a href="#products" onclick="closeDrawer()">Новинки</a>
+            <a href="#promos" onclick="closeDrawer()">Акции</a>
+            <a href="#about" onclick="closeDrawer()">О бренде</a>
+        </div>
+        <div class="drawer-footer">
+            &copy; 2026 Pepsi Schweiz. Все права защищены.
+        </div>
+    </div>
+
+    <main>
+        <!-- Главный экран -->
+        <section class="hero">
+            <h1><span class="sparkle">✦</span> Балуй себя<br>вкусом <span class="sparkle">✦</span></h1>
+            <div class="subtitle">Совсем без сахара</div>
+            
+            <img src="logo-circle.png" alt="Pepsi" class="mini-logo-img">
+
+            <div class="promo-card">
+                <div class="neu-badge">Новинка</div>
+                <img src="hero-cans-new.png" alt="Pepsi Новинки" class="hero-cans-img">
+            </div>
+        </section>
+
+        <!-- Каталог продуктов со ВСЕМИ вкусами -->
+        <section class="products-section" id="products">
+            <h2 class="section-title">Обзор продуктов</h2>
+            <div class="products-grid">
+                
+                <!-- Вкус 1 -->
+                <div class="product-card">
+                    <img src="can-strawberry.png" alt="Strawberries & Cream" class="product-img">
+                    <div class="product-name">Strawberries & Cream</div>
+                    <p class="product-desc">Невероятное сочетание спелой клубники и нежной крем-соды без сахара.</p>
+                    <div class="product-btns">
+                        <a href="#" class="btn btn-outline">О продукте</a>
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+
+                <!-- Вкус 2 -->
+                <div class="product-card">
+                    <img src="can-creamsoda.png" alt="Cream Soda" class="product-img">
+                    <div class="product-name">Cream Soda</div>
+                    <p class="product-desc">Классический мягкий ванильный вкус крем-соды в фирменном исполнении Pepsi Zero.</p>
+                    <div class="product-btns">
+                        <a href="#" class="btn btn-outline">О продукте</a>
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+
+                <!-- Вкус 3 -->
+                <div class="product-card">
+                    <img src="can-classic.png" alt="Pepsi Classic" class="product-img">
+                    <div class="product-name">Pepsi Classic</div>
+                    <p class="product-desc">Тот самый легендарный освежающий вкус, который задает тренды по всему миру.</p>
+                    <div class="product-btns">
+                        <a href="#" class="btn btn-outline">О продукте</a>
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+
+                <!-- Вкус 4 -->
+                <div class="product-card">
+                    <img src="can-zero.png" alt="Pepsi Zero Sugar" class="product-img">
+                    <div class="product-name">Pepsi Zero Sugar</div>
+                    <p class="product-desc">Максимальный насыщенный вкус любимого напитка — абсолютно ноль сахара.</p>
+                    <div class="product-btns">
+                        <a href="#" class="btn btn-outline">О продукте</a>
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Секция Акции -->
+        <section class="info-section" id="promos">
+            <div class="info-container">
+                <h3>Специальные акции</h3>
+                <p>Участвуй в сезонных розыгрышах, открывай лимитированные серии вкусов и получай мерч от любимого бренда.</p>
+            </div>
+        </section>
+
+        <!-- Секция О бренде -->
+        <section class="info-section" id="about">
+            <div class="info-container">
+                <h3>О бренде Pepsi</h3>
+                <p>Pepsi продолжает задавать тренды молодежной культуры, музыки и спорта, предлагая яркие эмоции и линейку освежающих напитков без сахара для нового поколения.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <img src="logo.png" alt="Pepsi" class="footer-logo">
+        <div class="footer-links">
+            <a href="#products">Продукты</a>
+            <a href="#promos">Акции</a>
+            <a href="#about">О бренде</a>
+            <a href="#">Контакты</a>
+        </div>
+        <p class="copyright">
+            &copy; 2026 PepsiCo, Inc. Все права защищены. Товарные знаки и логотипы принадлежат PepsiCo, Inc.
+        </p>
+    </footer>
+
+    <script>
+        // Работа шторки (бургер-меню)
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const drawer = document.getElementById('drawer');
+
+        function openDrawer() {
+            drawer.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Блокируем скролл страницы под шторкой
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Возвращаем скролл
+        }
+
+        menuBtn.addEventListener('click', openDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
+
+        // Работа выпадающего меню языков
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdown.classList.toggle('active');
+        });
+
+        window.addEventListener('click', () => {
+            langDropdown.classList.remove('active');
+        });
+
+        function setLang(lang) {
+            langBtn.textContent = lang + ' ∨';
+            langDropdown.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
+
