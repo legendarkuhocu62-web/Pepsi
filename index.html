@@ -208,6 +208,7 @@
             display: block;
         }
 
+        /* Исправленная кнопка: растянута по ширине рамки баннера */
         .overlay-btn {
             position: absolute;
             top: 36%;
@@ -217,15 +218,17 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             font-weight: 800;
-            font-size: clamp(12px, 3.5vw, 16px);
+            font-size: clamp(13px, 3.8vw, 16px);
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding: 14px 28px;
+            padding: 15px 30px;
+            width: 82%;
+            max-width: 320px;
+            text-align: center;
             border-radius: 40px;
             text-decoration: none;
             box-shadow: 0 8px 20px rgba(0,0,0,0.3);
             transition: transform 0.2s ease, background 0.2s ease;
-            white-space: nowrap;
             border: 2px solid rgba(255,255,255,0.15);
         }
 
@@ -433,17 +436,16 @@
     <main>
         <section class="hero">
             <div class="hero-banner-container">
-                <img src="hero-banner.jpg" alt="Pepsi Vanilla & Cream" class="hero-banner-img">
+                <img src="hero-banner.jpg" alt="Pepsi Ваниль и Крем" class="hero-banner-img">
                 <a href="#products" class="overlay-btn">Смотреть продукты</a>
             </div>
         </section>
 
-        <!-- Каталог со всеми 18 продуктами (включая крем-соду и клубнику) -->
+        <!-- Полный каталог продуктов -->
         <section class="products-section" id="products">
             <h2 class="section-title">Обзор продуктов</h2>
             <div class="products-grid">
                 
-                <!-- 1 -->
                 <div class="product-card">
                     <img src="can-vanillacream.jpg" alt="Vanilla & Cream" class="product-img">
                     <div class="product-name">Vanilla & Cream</div>
@@ -454,7 +456,6 @@
                     </div>
                 </div>
 
-                <!-- 2 -->
                 <div class="product-card">
                     <img src="can-zerovanillacream.jpg" alt="Zero Sugar Vanilla & Cream" class="product-img">
                     <div class="product-name">Zero Sugar Vanilla & Cream</div>
@@ -465,7 +466,6 @@
                     </div>
                 </div>
 
-                <!-- 3 -->
                 <div class="product-card">
                     <img src="can-strawberry.jpg" alt="Strawberries & Cream" class="product-img">
                     <div class="product-name">Strawberries & Cream</div>
@@ -476,7 +476,6 @@
                     </div>
                 </div>
 
-                <!-- 4 -->
                 <div class="product-card">
                     <img src="can-creamsoda.jpg" alt="Cream Soda" class="product-img">
                     <div class="product-name">Cream Soda</div>
@@ -487,7 +486,6 @@
                     </div>
                 </div>
 
-                <!-- 5 -->
                 <div class="product-card">
                     <img src="can-classic.jpg" alt="Pepsi Classic" class="product-img">
                     <div class="product-name">Pepsi Classic</div>
@@ -498,7 +496,6 @@
                     </div>
                 </div>
 
-                <!-- 6 -->
                 <div class="product-card">
                     <img src="can-zerosugar.jpg" alt="Pepsi Zero Sugar" class="product-img">
                     <div class="product-name">Pepsi Zero Sugar</div>
@@ -509,7 +506,6 @@
                     </div>
                 </div>
 
-                <!-- 7 -->
                 <div class="product-card">
                     <img src="can-dietpepsi.jpg" alt="Diet Pepsi" class="product-img">
                     <div class="product-name">Diet Pepsi</div>
@@ -520,7 +516,6 @@
                     </div>
                 </div>
 
-                <!-- 8 -->
                 <div class="product-card">
                     <img src="can-sodashop.jpg" alt="Soda Shop" class="product-img">
                     <div class="product-name">Soda Shop (Real Sugar)</div>
@@ -531,7 +526,6 @@
                     </div>
                 </div>
 
-                <!-- 9 -->
                 <div class="product-card">
                     <img src="can-sodashop-classic.jpg" alt="Pepsi-Cola Soda Shop" class="product-img">
                     <div class="product-name">Pepsi-Cola Soda Shop</div>
@@ -542,7 +536,6 @@
                     </div>
                 </div>
 
-                <!-- 10 -->
                 <div class="product-card">
                     <img src="can-prebioticcola.jpg" alt="Prebiotic Cola" class="product-img">
                     <div class="product-name">Prebiotic Cola</div>
@@ -553,7 +546,6 @@
                     </div>
                 </div>
 
-                <!-- 11 -->
                 <div class="product-card">
                     <img src="can-prebioticcherry.jpg" alt="Prebiotic Cherry Vanilla" class="product-img">
                     <div class="product-name">Prebiotic Cherry Vanilla</div>
@@ -564,7 +556,6 @@
                     </div>
                 </div>
 
-                <!-- 12 -->
                 <div class="product-card">
                     <img src="can-wildcherrycream.jpg" alt="Wild Cherry & Cream" class="product-img">
                     <div class="product-name">Wild Cherry & Cream</div>
@@ -575,7 +566,6 @@
                     </div>
                 </div>
 
-                <!-- 13 -->
                 <div class="product-card">
                     <img src="can-zerowildcherrycream.jpg" alt="Zero Sugar Wild Cherry & Cream" class="product-img">
                     <div class="product-name">Zero Sugar Wild Cherry & Cream</div>
@@ -586,7 +576,6 @@
                     </div>
                 </div>
 
-                <!-- 14 -->
                 <div class="product-card">
                     <img src="can-wildcherry.jpg" alt="Wild Cherry" class="product-img">
                     <div class="product-name">Wild Cherry</div>
@@ -597,7 +586,6 @@
                     </div>
                 </div>
 
-                <!-- 15 -->
                 <div class="product-card">
                     <img src="can-zerowildcherry.jpg" alt="Zero Sugar Wild Cherry" class="product-img">
                     <div class="product-name">Zero Sugar Wild Cherry</div>
@@ -608,7 +596,6 @@
                     </div>
                 </div>
 
-                <!-- 16 -->
                 <div class="product-card">
                     <img src="can-caffeinefree.jpg" alt="Caffeine Free" class="product-img">
                     <div class="product-name">Caffeine Free</div>
@@ -619,7 +606,6 @@
                     </div>
                 </div>
 
-                <!-- 17 -->
                 <div class="product-card">
                     <img src="can-dietcaffeinefree.jpg" alt="Diet Caffeine Free" class="product-img">
                     <div class="product-name">Diet Caffeine Free</div>
