@@ -596,6 +596,16 @@
                 </div>
 
                 <div class="product-card">
+                    <img src="can-dietwildcherry.jpg" alt="Diet Wild Cherry" class="product-img">
+                    <div class="product-name">Diet Wild Cherry</div>
+                    <p class="product-desc">Освежающий вкус сочной дикой вишни в легкой диетической версии без калорий.</p>
+                    <div class="product-btns">
+                        <a href="#" class="btn btn-outline">О продукте</a>
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
                     <img src="can-caffeinefree.jpg" alt="Caffeine Free" class="product-img">
                     <div class="product-name">Caffeine Free</div>
                     <p class="product-desc">Классический мягкий вкус Pepsi, полностью очищенный от кофеина.</p>
@@ -647,17 +657,14 @@
     </footer>
 
     <script>
-        // 1. Защита от кэша и битых иконок
         const cacheBuster = '?v=' + Date.now();
         
         document.querySelectorAll('.product-img, .hero-banner-img').forEach(img => {
-            // Принудительно заставляем браузер качать свежую версию файла с GitHub
             const rawSrc = img.getAttribute('src');
             if (rawSrc) {
                 img.src = rawSrc + cacheBuster;
             }
 
-            // Если файла нет в репозитории (удален или еще грузится) — ставим аккуратную плашку
             img.onerror = function() {
                 this.style.display = 'none';
                 const placeholder = document.createElement('div');
@@ -667,7 +674,6 @@
             };
         });
 
-        // 2. Меню-шторка
         const menuBtn = document.getElementById('menuBtn');
         const closeBtn = document.getElementById('closeBtn');
         const drawer = document.getElementById('drawer');
@@ -685,7 +691,6 @@
         menuBtn.addEventListener('click', openDrawer);
         closeBtn.addEventListener('click', closeDrawer);
 
-        // 3. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
 
