@@ -208,7 +208,6 @@
             display: block;
         }
 
-        /* Исправленная кнопка: растянута по ширине рамки баннера */
         .overlay-btn {
             position: absolute;
             top: 36%;
@@ -648,6 +647,27 @@
     </footer>
 
     <script>
+        // 1. Защита от кэша и битых иконок
+        const cacheBuster = '?v=' + Date.now();
+        
+        document.querySelectorAll('.product-img, .hero-banner-img').forEach(img => {
+            // Принудительно заставляем браузер качать свежую версию файла с GitHub
+            const rawSrc = img.getAttribute('src');
+            if (rawSrc) {
+                img.src = rawSrc + cacheBuster;
+            }
+
+            // Если файла нет в репозитории (удален или еще грузится) — ставим аккуратную плашку
+            img.onerror = function() {
+                this.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'height: 260px; width: 100%; display: flex; align-items: center; justify-content: center; background: #222; color: #888; font-size: 12px; border-radius: 16px; margin-bottom: 25px; text-transform: uppercase; font-weight: 700; padding: 15px; text-align: center;';
+                placeholder.textContent = 'Изображение обновляется';
+                this.parentNode.insertBefore(placeholder, this);
+            };
+        });
+
+        // 2. Меню-шторка
         const menuBtn = document.getElementById('menuBtn');
         const closeBtn = document.getElementById('closeBtn');
         const drawer = document.getElementById('drawer');
@@ -665,6 +685,7 @@
         menuBtn.addEventListener('click', openDrawer);
         closeBtn.addEventListener('click', closeDrawer);
 
+        // 3. Переключатель языка
         const langBtn = document.getElementById('langBtn');
         const langDropdown = document.getElementById('langDropdown');
 
